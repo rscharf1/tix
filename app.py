@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-import subprocess
+from flask import Flask, json, render_template, request, jsonify
+import subprocess, json as j
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
@@ -62,8 +62,14 @@ def send_email():
     server.sendmail(gmail, "rscharf33@gmail.com", msg_full)
     server.quit()
 
-    # server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    # server.login("scharf.frontrow@gmail.com", "nutflush")
-    # server.sendmail("scharf.frontrow@gmail.com", "rscharf33@gmail.com", "sup")
-    # server.quit()
+    return ("nothing")
+
+@app.route('/make_tix', methods=['POST', 'GET'])
+def make_tix():
+    print("Make tix function")
+    data = request.get_json()
+    print(data)
+    print(data["home"])
+
+
     return ("nothing")

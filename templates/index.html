@@ -17,8 +17,52 @@
         <form>
             <a href="#" id="create"><button class='btn btn-default'>Create file</button></a>
             <a href="#" id="delete"><button class='btn btn-default'>Remove file</button></a>
-            <a href="#" id="email"><button class='btn btn-default'>Send email</button></a>
+            <a href="#" id="send-email"><button class='btn btn-default'>Send email</button></a>
         </form>
+        <hr>
+
+        <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label>Home team</label>
+                    <select class="form-control" id="home">
+                        <option>Bruins</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Opponent</label>
+                    <input type="text" class="form-control" id="opponent" placeholder="Florida Panthers">
+                </div>
+                <div class="col">
+                    <label>Date</label>
+                    <input type="text" class="form-control" id="date" placeholder="Nov 4, 2021">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label>Section</label>
+                    <input id="section" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Row</label>
+                    <input id="row" type="text" class="form-control">
+                </div>
+                <div class="col">
+                    <label>Seat</label>
+                    <input id="seat" type="text" class="form-control">
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="submit">Submit</button>
+          </form>
+
       
       </div>
 {% endblock %}
