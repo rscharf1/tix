@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os, re, sys, subprocess
+from os.path import exists
 import tix
 import csv
 
@@ -10,10 +11,10 @@ def main():
     cmd = "mkdir temp_tix"
     subprocess.call(cmd, shell=True)
 
-    with open("input_files/bruins.csv", "r") as f:
+    with open("test_input.csv", "r") as f:
         reader = csv.DictReader(f, delimiter=",")
         for row in reader:
-            print(row)
+            print("ROW", row)
             print(row['home'])
             time = row['time']
             date = row['date']
@@ -23,7 +24,7 @@ def main():
             row_num = row['row']
             seat = row['seat']
             entry = row['entry']
-            path = "temp_tix/" + row['section'] + "-" + row['row'] + "-" + row['seat'] + ".jpg"
+            path = "temp_tix/" + row['section'] + "-" + row['row'] + "-" + row['seat'] + ".jpeg"
             tix.bruins(time, date, opponent, section, row_num, seat, entry, path)
 
 if __name__ == "__main__":

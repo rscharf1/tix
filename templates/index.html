@@ -12,7 +12,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Welcome to FlaskBlog - Updated! {% endblock %}</h1>
+    <h1>{% block title %} Ticket Generator {% endblock %}</h1>
     <div class='container'>
         <form>
             <a href="#" id="create"><button class='btn btn-default'>Create file</button></a>
@@ -22,12 +22,26 @@
         <hr>
 
         <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                  Single Ticket
+                </label>  
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                  Multiple Tickets 
+                </label>  
             </div>
 
             <div class="form-row">
+                <div class="col">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Where tickets should be sent</small>
+                </div>
                 <div class="col">
                     <label>Home team</label>
                     <select class="form-control" id="home">
@@ -39,9 +53,22 @@
                     <label>Opponent</label>
                     <input type="text" class="form-control" id="opponent" placeholder="Florida Panthers">
                 </div>
+            </div>
+
+            <div class="form-row">
                 <div class="col">
                     <label>Date</label>
                     <input type="text" class="form-control" id="date" placeholder="Nov 4, 2021">
+                </div>
+                <div class="col">
+                    <label>Game Start</label>
+                    <input type="text" class="form-control" id="time" placeholder="7:00 PM">
+                </div>
+                <div class="col">
+                    <label for="exampleInputEmail1">Entry</label>
+                    <input type="email" class="form-control" id="entry" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Might not be needed</small>
+
                 </div>
             </div>
 
@@ -56,7 +83,8 @@
                 </div>
                 <div class="col">
                     <label>Seat</label>
-                    <input id="seat" type="text" class="form-control">
+                    <input id="seat" type="text" class="form-control" placeholder="ex. 5 or 5-8">
+                    <small id="emailHelp" class="form-text text-muted">Single seat or range accepted</small>
                 </div>
             </div>
 

@@ -1,5 +1,8 @@
 from flask import Flask, json, render_template, request, jsonify
-import subprocess, json as j
+import subprocess
+from os.path import exists
+import csv
+import tix
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
@@ -37,14 +40,14 @@ def send_email():
     message = MIMEMultipart('mixed')
     message['From'] = 'scharf.frontrow@gmail.com'
     message['To'] = 'rscharf33@gmail.com'
-    # message['CC'] = 'contact@company.com'
     message['Subject'] = 'Hello'
 
     msg_content = '<h4>Hi There,<br> This is a testing message.</h4>\n'
     body = MIMEText(msg_content, 'html')
     message.attach(body)
 
-    attachmentPath = "pep.pdf"
+    attachmentPath = "pictures.pdf"
+    # attachmentPath = "temp_tix/121-K-1.jpeg"
     try:
         with open(attachmentPath, "rb") as attachment:
             p = MIMEApplication(attachment.read(),_subtype="pdf")	
@@ -68,8 +71,28 @@ def send_email():
 def make_tix():
     print("Make tix function")
     data = request.get_json()
-    print(data)
-    print(data["home"])
+    print("DATA", data)
 
+    f = open("test_input.csv", 'w')
+    writer = csv.writer(f)
+
+    writer.writerow(["home", "opponent", "date", "time", "section", "row", "seat", "entry"])
+    if "-" in data["seat"]:
+        r = data["seat"].split("-")
+        for i in range(int(r[0]), int(r[1])+1):
+            writer.writerow([data["home"], data["opponent"], data["date"], data["time"], data["section"], data["row"], i, data["entry"]])
+    else:
+        writer.writerow([data["home"], data["opponent"], data["date"], data["time"], data["section"], data["row"], data["seat"], data["entry"]])
+
+    f.close()
+    
+    cmd = "python3 master.py"
+    subprocess.call(cmd, shell=True)
+
+    # convert *.jpg -auto-orient pictures.pdf
+    cmd = "convert temp_tix/*.jpg -auto-orient pictures.pdf"
+    subprocess.call(cmd, shell=True)
+
+    send_email()
 
     return ("nothing")

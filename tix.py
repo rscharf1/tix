@@ -57,7 +57,7 @@ def bruins(time, date, game, section, row, seat, entry, path):
     image_editable = ImageDraw.Draw(my_image)
     image_editable.text((1035,366), time, (241,199,83), font = time_font, anchor="rm")
     image_editable.text((1035,410), date, (255, 255, 255), font = date_font, anchor="rm")
-    image_editable.text((91,875), game, (255, 255, 255), font = game_font, anchor="lm")
+    image_editable.text((91,875), "Boston Bruins vs " + game, (255, 255, 255), font = game_font, anchor="lm")
     image_editable.text((93,1015), section, (255, 255, 255), font = section_font, anchor="lm")
     image_editable.text((595,1015), row, (255, 255, 255), font = row_font, anchor="lm")
     image_editable.text((962,1015), seat, (255, 255, 255), font = seat_font, anchor="lm")

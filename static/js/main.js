@@ -1,19 +1,16 @@
 $(function() {
     $('#submit').on('click', function(e) {
       console.log("tix")
-        var data = [
-            {"email": $("#email").val()},
-            {"home": $("#home").val()},
-            {"opponent": $("#opponent").val()},
-            {"date": $("#opponent").val()},
-            {"section": $("#section").val()},
-            {"row": $("#row").val()},
-            {"seat": $("#seat").val()}
-        ]
-
-        data = {
-            "email": "rscharf33@gmail.com",
-            "home": "Bruins"
+        var data = {
+            "email": $("#email").val(),
+            "home": $("#home").val(),
+            "opponent": $("#opponent").val(),
+            "date": $("#date").val(),
+            "time": $("#time").val(),
+            "section": $("#section").val(),
+            "row": $("#row").val(),
+            "seat": $("#seat").val(),
+            "entry": $("#entry").val()
         }
 
       $.ajax({
