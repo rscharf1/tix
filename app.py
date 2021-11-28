@@ -1,12 +1,13 @@
 from flask import Flask, json, render_template, request, jsonify
 import subprocess
 from os.path import exists
+import os
 import csv
-import tix
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.application import MIMEApplication
+from PyPDF2 import PdfFileMerger
 
 app = Flask(__name__)
 
@@ -14,23 +15,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-#background process happening without any refreshing
-@app.route('/create_file')
-def create_file():
-    print ("Create file")
-    cmd = "touch test.txt"
-    subprocess.call(cmd, shell=True)
-    return ("nothing")
-
-@app.route('/delete_file')
-def delete_file():
-    print ("Delete file")
-    cmd = "rm test.txt"
-    subprocess.call(cmd, shell=True)
-    return ("nothing")
-
 @app.route('/send_email')
-def send_email():
+def send_email(email):
+    print("EMAIL", email)
     smtp_server = 'smtp.gmail.com'
     smtp_port = 465
     #Replace with your own gmail account
@@ -39,15 +26,14 @@ def send_email():
 
     message = MIMEMultipart('mixed')
     message['From'] = 'scharf.frontrow@gmail.com'
-    message['To'] = 'rscharf33@gmail.com'
-    message['Subject'] = 'Hello'
+    message['To'] = email
+    message['Subject'] = 'Tickets'
 
-    msg_content = '<h4>Hi There,<br> This is a testing message.</h4>\n'
-    body = MIMEText(msg_content, 'html')
-    message.attach(body)
+    # msg_content = '<h4>Hi There,<br> This is a testing message.</h4>\n'
+    # body = MIMEText(msg_content, 'html')
+    # message.attach(body)
 
-    attachmentPath = "pictures.pdf"
-    # attachmentPath = "temp_tix/121-K-1.jpeg"
+    attachmentPath = "tix.pdf"
     try:
         with open(attachmentPath, "rb") as attachment:
             p = MIMEApplication(attachment.read(),_subtype="pdf")	
@@ -62,8 +48,11 @@ def send_email():
 
     server = smtplib.SMTP_SSL(smtp_server, smtp_port)
     server.login(gmail, password)
-    server.sendmail(gmail, "rscharf33@gmail.com", msg_full)
+    server.sendmail(gmail, email, msg_full)
     server.quit()
+
+    cmd = "rm -r temp_tix tix_input.csv tix.pdf"
+    subprocess.call(cmd, shell=True)
 
     return ("nothing")
 
@@ -73,7 +62,7 @@ def make_tix():
     data = request.get_json()
     print("DATA", data)
 
-    f = open("test_input.csv", 'w')
+    f = open("tix_input.csv", 'w')
     writer = csv.writer(f)
 
     writer.writerow(["home", "opponent", "date", "time", "section", "row", "seat", "entry"])
@@ -89,10 +78,16 @@ def make_tix():
     cmd = "python3 master.py"
     subprocess.call(cmd, shell=True)
 
-    # convert *.jpg -auto-orient pictures.pdf
-    cmd = "convert temp_tix/*.jpg -auto-orient pictures.pdf"
-    subprocess.call(cmd, shell=True)
+    pdfs = os.listdir("temp_tix")
 
-    send_email()
+    merger = PdfFileMerger()
+
+    for pdf in pdfs:
+        merger.append("temp_tix/" + pdf)
+
+    merger.write("tix.pdf")
+    merger.close()
+
+    send_email(data["email"])
 
     return ("nothing")

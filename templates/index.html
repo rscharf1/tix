@@ -13,16 +13,10 @@
 
 {% block content %}
     <h1>{% block title %} Ticket Generator {% endblock %}</h1>
+    <hr>
     <div class='container'>
         <form>
-            <a href="#" id="create"><button class='btn btn-default'>Create file</button></a>
-            <a href="#" id="delete"><button class='btn btn-default'>Remove file</button></a>
-            <a href="#" id="send-email"><button class='btn btn-default'>Send email</button></a>
-        </form>
-        <hr>
-
-        <form>
-            <div class="form-check">
+            <!-- <div class="form-check">
                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                 <label class="form-check-label" for="exampleRadios2">
                   Single Ticket
@@ -34,7 +28,7 @@
                 <label class="form-check-label" for="exampleRadios2">
                   Multiple Tickets 
                 </label>  
-            </div>
+            </div> -->
 
             <div class="form-row">
                 <div class="col">
@@ -52,6 +46,7 @@
                 <div class="col">
                     <label>Opponent</label>
                     <input type="text" class="form-control" id="opponent" placeholder="Florida Panthers">
+                    <small id="emailHelp" class="form-text text-muted">Include full name</small>
                 </div>
             </div>
 
@@ -82,7 +77,7 @@
                     <input id="row" type="text" class="form-control">
                 </div>
                 <div class="col">
-                    <label>Seat</label>
+                    <label>Seat(s)</label>
                     <input id="seat" type="text" class="form-control" placeholder="ex. 5 or 5-8">
                     <small id="emailHelp" class="form-text text-muted">Single seat or range accepted</small>
                 </div>

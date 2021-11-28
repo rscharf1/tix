@@ -11,7 +11,7 @@ def main():
     cmd = "mkdir temp_tix"
     subprocess.call(cmd, shell=True)
 
-    with open("test_input.csv", "r") as f:
+    with open("tix_input.csv", "r") as f:
         reader = csv.DictReader(f, delimiter=",")
         for row in reader:
             print("ROW", row)
@@ -24,7 +24,7 @@ def main():
             row_num = row['row']
             seat = row['seat']
             entry = row['entry']
-            path = "temp_tix/" + row['section'] + "-" + row['row'] + "-" + row['seat'] + ".jpeg"
+            path = "temp_tix/" + row['section'] + "-" + row['row'] + "-" + row['seat'] + ".pdf"
             tix.bruins(time, date, opponent, section, row_num, seat, entry, path)
 
 if __name__ == "__main__":
