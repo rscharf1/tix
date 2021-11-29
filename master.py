@@ -25,7 +25,10 @@ def main():
             seat = row['seat']
             entry = row['entry']
             path = "temp_tix/" + row['section'] + "-" + row['row'] + "-" + row['seat'] + ".pdf"
-            tix.bruins(time, date, opponent, section, row_num, seat, entry, path)
+            if(row['home'] == "Bruins"):
+                tix.bruins(time, date, opponent, section, row_num, seat, entry, path)
+            if(row['home'] == "Blues"):
+                tix.blues(time, date, opponent, section, row_num, seat, entry, path)
 
 if __name__ == "__main__":
     import os, re, sys, subprocess

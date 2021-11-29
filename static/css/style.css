@@ -7,4 +7,17 @@ h1 {
 
 input[type="radio"] {
     margin-right: 10px;
-  }
+}
+
+@media screen and (max-width: 900px) {
+    .col {
+       width:100%;
+    }
+ }
+
+
+@media screen and (min-width: 900px) {
+    body {
+        max-width: 70%;
+    }
+}
