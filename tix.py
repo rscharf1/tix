@@ -7,7 +7,7 @@ import os, re, sys
 
 def blues_test():
 
-    my_image = Image.open("model_tix/blues.jpeg")
+    my_image = Image.open("../blues_tm.jpeg")
 
     time_font = ImageFont.truetype('fonts/avenir-bold.ttf', 22)
     time_text = "7:00 PM"
@@ -37,7 +37,7 @@ def blues_test():
     image_editable.text((62,707), section_text, (255, 255, 255), font = section_font, anchor="lm")
     image_editable.text((410,707), row_text, (255, 255, 255), font = row_font, anchor="lm")
     image_editable.text((714,705), seat_text, (255, 255, 255), font = seat_font, anchor="lm")
-    image_editable.text((60,802), entry_text, (255, 255, 255), font = entry_font, anchor="lm")
+    # image_editable.text((60,802), entry_text, (255, 255, 255), font = entry_font, anchor="lm")
 
     my_image = my_image.convert('RGB')
     my_image.save("test.jpg")
@@ -89,14 +89,30 @@ def blues(time, date, game, section, row, seat, entry, path):
     image_editable.text((714,705), seat, (255, 255, 255), font = seat_font, anchor="lm")
     image_editable.text((60,802), entry, (255, 255, 255), font = entry_font, anchor="lm")
 
-    # image_editable = ImageDraw.Draw(my_image)
-    # image_editable.text((1035,366), time, (241,199,83), font = time_font, anchor="rm")
-    # image_editable.text((1035,410), date, (255, 255, 255), font = date_font, anchor="rm")
-    # image_editable.text((91,875), "St. Louis Blues vs. " + game, (255, 255, 255), font = game_font, anchor="lm")
-    # image_editable.text((93,1015), section, (255, 255, 255), font = section_font, anchor="lm")
-    # image_editable.text((595,1015), row, (255, 255, 255), font = row_font, anchor="lm")
-    # image_editable.text((962,1015), seat, (255, 255, 255), font = seat_font, anchor="lm")
-    # image_editable.text((91,1160), entry, (255, 255, 255), font = entry_font, anchor="lm")
+    my_image = my_image.convert('RGB')
+    my_image.save(path)
+
+    print("Done")
+
+def blues_tm(time, date, game, section, row, seat, entry, path):
+    my_image = Image.open("model_tix/blues_tm.jpeg")
+
+    time_font = ImageFont.truetype('fonts/avenir-bold.ttf', 22)
+    date_font = ImageFont.truetype('fonts/arial.ttf', 40)
+    game_font = ImageFont.truetype('fonts/arial.ttf', 39)
+    section_font = ImageFont.truetype('fonts/arial.ttf', 37)   
+    row_font = ImageFont.truetype('fonts/arial.ttf', 37)
+    seat_font = ImageFont.truetype('fonts/arial.ttf', 37)
+    entry_font = ImageFont.truetype('fonts/arial.ttf', 38)
+
+    image_editable = ImageDraw.Draw(my_image)
+    image_editable.text((765,250), time, (51,153,255,255), font = time_font, anchor="rm")
+    image_editable.text((765,280), date, (255, 255, 255), font = date_font, anchor="rm")
+    image_editable.text((60,612), "St. Louis Blues vs. " + game, (255, 255, 255), font = game_font, anchor="lm")
+    image_editable.text((62,707), section, (255, 255, 255), font = section_font, anchor="lm")
+    image_editable.text((410,707), row, (255, 255, 255), font = row_font, anchor="lm")
+    image_editable.text((714,705), seat, (255, 255, 255), font = seat_font, anchor="lm")
+    # image_editable.text((60,802), entry, (255, 255, 255), font = entry_font, anchor="lm")
 
     my_image = my_image.convert('RGB')
     my_image.save(path)

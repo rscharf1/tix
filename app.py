@@ -16,7 +16,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/send_email')
-def send_email(email):
+def send_email(email, section, row):
     print("EMAIL", email)
     smtp_server = 'smtp.gmail.com'
     smtp_port = 465
@@ -27,7 +27,7 @@ def send_email(email):
     message = MIMEMultipart('mixed')
     message['From'] = 'scharf.frontrow@gmail.com'
     message['To'] = email
-    message['Subject'] = 'Tickets'
+    message['Subject'] = "Section " + section + ", Row " + row
 
     # msg_content = '<h4>Hi There,<br> This is a testing message.</h4>\n'
     # body = MIMEText(msg_content, 'html')
@@ -88,6 +88,6 @@ def make_tix():
     merger.write("tix.pdf")
     merger.close()
 
-    send_email(data["email"])
+    send_email(data["email"], data["section"], data["row"])
 
     return ("nothing")

@@ -29,6 +29,8 @@ def main():
                 tix.bruins(time, date, opponent, section, row_num, seat, entry, path)
             if(row['home'] == "Blues"):
                 tix.blues(time, date, opponent, section, row_num, seat, entry, path)
+            if(row['home'] == "Blues_TM"):
+                tix.blues_tm(time, date, opponent, section, row_num, seat, entry, path)
 
 if __name__ == "__main__":
     import os, re, sys, subprocess
